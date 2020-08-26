@@ -1,9 +1,8 @@
 
 const url = require('url');
 const http = require('http');
-const response = require('../Made/src/response')
-const app = require('../Made/src/app')
-
+const response = require('./src/response')
+const app = require('./src/app')
 
 http.createServer((req, res) => {
     let body = [];
@@ -17,11 +16,8 @@ http.createServer((req, res) => {
         // main app
         app.execute(req, res, body);
         
-        // dev
         res.on('error', (err) => {
             console.error(err);
         });
-        console.log('test');
-        
     });
 }).listen(8080);

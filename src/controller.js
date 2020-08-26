@@ -4,3 +4,5 @@ class Controller {
 
     getRoutes(){ return [] }
 }
+
+module.exports = Controller

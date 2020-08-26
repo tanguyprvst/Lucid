@@ -1,10 +1,13 @@
-const Route = require('../../src/route')
+const Route = require('../../src/route');
+const Controller = require('../../src/controller');
 
-class ExempleController {
+const ExempleMiddleware = require('../middlewares/ExempleMiddleware');
+
+class ExempleController extends Controller {
 
     getRoutes(){
         return [
-            new Route('/', 'get', this.exempleFunc),
+            new Route('/', 'get', this.exempleFunc, ExempleMiddleware),
             new Route('/exemple/{exemple}', 'get', this.exempleFunc_2),
             new Route('/exemple', 'post', this.exempleFunc_3),
         ]

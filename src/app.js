@@ -32,8 +32,6 @@ class App {
                 }
             })
 
-            
-
             if(execute_route === undefined){
                 console.log('Undefined route');
                 response.error(res, 'Undefined route');
@@ -51,13 +49,11 @@ class App {
             }
 
             // get response
-            let json = execute_route.callback(args);
+            let json = execute_route.execute(args);
             
             response.success(res, json);
         });
     }
-
-
 }
 
 module.exports = App
