@@ -1,6 +1,6 @@
 const Route = require('../../src/route');
 const Controller = require('../../src/controller');
-
+const DB = require('../../src/database');
 const ExempleMiddleware = require('../middlewares/ExempleMiddleware');
 
 class ExempleController extends Controller {
@@ -14,6 +14,10 @@ class ExempleController extends Controller {
     }
 
     exempleFunc(){
+        let user = DB.table('users', function(err){
+            console.log(err);
+        });
+        //console.log(user.get());
         return {value: 'Bonjour !'};
     }
 

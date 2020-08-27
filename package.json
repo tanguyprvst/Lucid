@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/Addidii/Lucid#readme",
   "dependencies": {
-    "mysql": "^2.18.1"
+    "mysql": "github:mysqljs/mysql"
   }
 }
