@@ -1,0 +1,23 @@
+{
+  "name": "lucid",
+  "version": "1.0.0",
+  "description": "JS Micro-Framework",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Addidii/Lucid.git"
+  },
+  "author": "Addicted",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Addidii/Lucid/issues"
+  },
+  "homepage": "https://github.com/Addidii/Lucid#readme",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  }
+}
