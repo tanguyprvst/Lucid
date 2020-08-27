@@ -8,8 +8,8 @@ class ExempleController extends Controller {
     getRoutes(){
         return [
             new Route('/', 'get', this.exempleFunc, ExempleMiddleware),
-            new Route('/exemple/{exemple}', 'get', this.exempleFunc_2),
-            new Route('/exemple', 'post', this.exempleFunc_3),
+            new Route('/exemple/{exemple}', 'get', this.exempleFunc_2, ExempleMiddleware),
+            new Route('/exemple/{test}', 'post', this.exempleFunc_3),
         ]
     }
 
@@ -21,8 +21,11 @@ class ExempleController extends Controller {
         return {value: exemple};
     }
 
-    exempleFunc_3(request){
-        return {value: request.exemple};
+    exempleFunc_3(request, test){
+        return {
+            post: request.exemple,
+            get: test
+        };
     }
 }
 

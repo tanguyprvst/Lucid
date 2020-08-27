@@ -21,3 +21,5 @@ http.createServer((req, res) => {
         });
     });
 }).listen(8080);
+
+console.log('server listen on port 8080 at 127.0.0.1:8080');

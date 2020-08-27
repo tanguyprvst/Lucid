@@ -1,6 +1,7 @@
 const fs = require('fs');
 const url = require('url');
 const response = require('../src/response');
+const { get } = require('http');
 
 class App {
 
@@ -38,15 +39,14 @@ class App {
                 return;
             }
 
-            console.log(execute_route)
-
             // get args
             let args = [];
-            if(execute_route.method == 'GET'){
-                args = execute_route.getUrlArgs(url)
-            }else{
-                args = JSON.parse(Buffer.concat(body).toString());
+            args['post'] = {};
+            if(execute_route.method == 'POST'){
+                args['post'] = JSON.parse(Buffer.concat(body).toString());
             }
+
+            args['get']  = execute_route.getUrlArgs(url);
 
             // get response
             let json = execute_route.execute(args);

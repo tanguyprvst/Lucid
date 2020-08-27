@@ -34,8 +34,21 @@ class Route {
     }
 
     execute(request){
-        console.log(this.middleware);
-        return this.middleware ? this.middleware.handle(request, this.callback): this.callback(request);
+        return this.middleware ? this.middleware.handle(request, this.requestManager.bind(this)): this.requestManager(request);
+    }
+
+    requestManager(request){
+        if(this.method === 'POST' && 'post' in request){
+            if('get' in request) {
+                return this.callback(request.post, ...request.get);
+            }
+            return this.callback(request.post);   
+        }else{
+            if('get' in request) {
+                return this.callback(...request.get);
+            }
+            return this.callback();
+        }
     }
 }
 
