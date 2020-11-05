@@ -4,7 +4,6 @@ JS Micro-Framework
 ## Table of Contents
 
 * [Getting Started](#getting-started)
-  * [Prerequisites](#prerequisites)
   * [Installation](#installation)
 * [Usage](#usage)
   * [Controllers](#controllers)
@@ -13,14 +12,6 @@ JS Micro-Framework
 * [Contributing](#contributing)
 
 ## Getting Started
-
-### Prerequisites
-
-Use the package manager [npm](https://www.npmjs.com).
-
-```bash
-npm install
-```
 
 ### Installation
 

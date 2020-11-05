@@ -1,6 +1,6 @@
 const fs = require('fs');
-const response = require('../src/response');
-const Route = require('./route');
+const response = require('./app/response');
+const Route = require('./app/route');
 
 class App {
 

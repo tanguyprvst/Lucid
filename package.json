@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Addidii/Lucid#readme",
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "mysql": "github:mysqljs/mysql"
   }
 }

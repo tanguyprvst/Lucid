@@ -1,5 +1,5 @@
-const Controller = require('../../src/controller');
-const DB = require('../../src/database');
+const Controller = require('../../src/app/controller');
+const DB = require('../../src/database/database');
 const ExempleMiddleware = require('../middlewares/ExempleMiddleware');
 
 class ExempleController extends Controller {
@@ -19,12 +19,11 @@ class ExempleController extends Controller {
     }
 
     exempleFunc_2(res, exemple){
-        this.render(res, {value: exemple});
+        this.render(res, {exemple});
     }
 
     exempleFunc_3(res, request, test){
-        console.log(request);
-        this.render(res, {value: request});
+        this.render(res, {request, test});
     }
 }
 
