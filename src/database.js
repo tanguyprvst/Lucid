@@ -26,16 +26,14 @@ class QueryBuilder
         this.table = table;
     }
 
-    where(property, operator, value) {
+    where(property, operator, value, prefix = "AND") {
         if (typeof value == 'string' || value instanceof String) value = '\"' + value + '\"';
-        this.where_array.length > 0 ? this.where_array.push(`AND ${property} ${operator} ${value}`) : this.where_array.push(`${property} ${operator} ${value}`);
+        this.where_array.length > 0 ? this.where_array.push(`${prefix} ${property} ${operator} ${value}`) : this.where_array.push(`${property} ${operator} ${value}`);
         return this;
     }
 
     orWhere(property, operator, value) {
-        if (typeof value == 'string' || value instanceof String) value = '\"' + value + '\"';
-        this.where_array.push(`OR ${property} ${operator} ${value}`);
-        return this;
+        return this.where(property, operator, value, 'OR');
     }
 
     get(callback, first = false) {
@@ -45,10 +43,9 @@ class QueryBuilder
         if (where_array.length > 0) {
             cmd += ' WHERE';
             where_array.forEach(condition => {
-                cmd += ' ' + condition;
+                cmd += ` ${condition}`;
             });
         }
-        console.log(cmd);
         this.connection.query(cmd, (err, res) => {
             if(err) throw(err);
             if(first) return callback(res[0]);
