@@ -1,6 +1,17 @@
 # Lucid
 JS Micro-Framework
 
+## Table of Contents
+
+* [Getting Started](#getting-started)
+  * [Prerequisites](#prerequisites)
+  * [Installation](#installation)
+* [Usage](#usage)
+  * [Controllers](#controllers)
+  * [Routes](#routes)
+  * [Middlewares](#middlewares)
+* [Contributing](#contributing)
+
 ## Getting Started
 
 ### Prerequisites
