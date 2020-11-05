@@ -13,7 +13,7 @@ class ExempleController extends Controller {
     }
 
     exempleFunc(res){
-        DB.table('users').where('username', '=', 'Japan').orWhere('id', '=', 1).get((data) => {
+        DB.table('users').where('username', '=', 'Japan').get((data) => {
             this.render(res, {value: data});
         });
     }

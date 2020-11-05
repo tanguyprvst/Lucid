@@ -20,15 +20,17 @@ class DB {
 
 class QueryBuilder 
 {
-    where_array = []
+    where_array = [];
+    value_array = [];
+
     constructor(connection, table){
         this.connection = connection;
         this.table = table;
     }
 
     where(property, operator, value, prefix = "AND") {
-        if (typeof value == 'string' || value instanceof String) value = '\"' + value + '\"';
-        this.where_array.length > 0 ? this.where_array.push(`${prefix} ${property} ${operator} ${value}`) : this.where_array.push(`${property} ${operator} ${value}`);
+        this.where_array.length > 0 ? this.where_array.push(`${prefix} ${property} ${operator}`) : this.where_array.push(`${property} ${operator}`);
+        this.value_array.push(value);
         return this;
     }
 
@@ -43,9 +45,11 @@ class QueryBuilder
         if (where_array.length > 0) {
             cmd += ' WHERE';
             where_array.forEach(condition => {
-                cmd += ` ${condition}`;
+                cmd += ` ${condition} ?`;
+                
             });
         }
+        cmd = mysql.format(cmd, this.value_array);
         this.connection.query(cmd, (err, res) => {
             if(err) throw(err);
             if(first) return callback(res[0]);
