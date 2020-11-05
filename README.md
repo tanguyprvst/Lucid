@@ -1,16 +1,34 @@
 # Lucid
 JS Micro-Framework
 
-## Installation
+## Getting Started
+
+### Prerequisites
 
 Use the package manager [npm](https://www.npmjs.com).
 
 ```bash
 npm install
 ```
+
+### Installation
+
+Clone the repo
+```sh
+git clone https://github.com/tanguyprvst/Lucid.git
+```
+Install NPM packages
+```sh
+npm install
+```
+
 ## Usage
 
-Create a controller in ``app/controller``
+### Controllers
+
+#### Create
+
+Create a controller in ``app/controllers``
 
 ```js
 const Controller = require('../../src/controller');
@@ -22,12 +40,15 @@ class ExempleController extends Controller {
 module.exports = ExempleController
 ```
 
-And now, create your routes and methods!
+#### Add routes and functions
+
+Create your routes and methods!
+
 ```js
 const Controller = require('../../src/controller');
 
 class ExempleController extends Controller {
- getRoutes(){
+    getRoutes(){
         return [
             ['/', 'get', this.exempleFunc],
         ]
@@ -39,6 +60,39 @@ class ExempleController extends Controller {
 }
 
 module.exports = ExempleController
+```
+
+### Middlewares
+
+#### Create
+
+Create a controller in ``app/middlewares``
+
+```js
+class ExempleMiddleware {
+    
+    static handle(res, request, next){
+        return next(res, request);
+    }
+}
+
+module.exports = ExempleMiddleware
+```
+
+#### Import
+
+In your controller, import your middleware
+
+```js
+const ExempleMiddleware = require('../middlewares/ExempleMiddleware');
+```
+
+#### Use
+
+And use your middleware by changing your route!
+
+```js
+['/', 'get', this.exempleFunc, ExempleMiddleware],
 ```
 
 
