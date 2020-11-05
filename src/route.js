@@ -35,21 +35,20 @@ class Route {
     }
 
     execute(res, request){
-        this.controller.res = res;
-        return this.middleware ? this.middleware.handle(request, this.requestManager.bind(this)) : this.requestManager(request);
+        return this.middleware ? this.middleware.handle(res, request, this.requestManager.bind(this)) : this.requestManager(res, request);
     }
 
-    requestManager(request){
+    requestManager(res, request){
         if(this.method === 'POST' && 'post' in request){
             if('get' in request) {
-                return this.callback(request.post, ...request.get);
+                return this.callback(res, request.post, ...request.get);
             }
-            return this.callback(request.post);   
+            return this.callback(res, request.post);   
         }else{
             if('get' in request) {
-                return this.callback(...request.get);
+                return this.callback(res, ...request.get);
             }
-            return this.callback();
+            return this.callback(res);
         }
     }
 }

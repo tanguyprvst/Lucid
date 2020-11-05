@@ -12,22 +12,19 @@ class ExempleController extends Controller {
         ]
     }
 
-    exempleFunc(){
-        DB.table('users').get((data) => {
-            console.log(data);
-            this.render({value: 'Bonjour !'});
+    exempleFunc(res){
+        DB.table('users').where('username', '=', 'Japan').orWhere('id', '=', 1).get((data) => {
+            this.render(res, {value: data});
         });
     }
 
-    exempleFunc_2(exemple){
-        return {value: exemple};
+    exempleFunc_2(res, exemple){
+        this.render(res, {value: exemple});
     }
 
-    exempleFunc_3(request, test){
-        return {
-            post: request.exemple,
-            get: test
-        };
+    exempleFunc_3(res, request, test){
+        console.log(request);
+        this.render(res, {value: request});
     }
 }
 

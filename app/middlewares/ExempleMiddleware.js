@@ -1,7 +1,7 @@
 class ExempleMiddleware {
     
-    static handle(request, next){
-        return next(request);
+    static handle(res, request, next){
+        return next(res, request);
     }
 }
 

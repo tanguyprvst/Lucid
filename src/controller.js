@@ -2,11 +2,9 @@ const Response = require("./response");
 
 class Controller {
 
-    res = undefined;
-
     constructor(){}
     
-    render(json) { Response.success(this.res, json) }
+    render(res, json) { Response.success(res, json) }
     getRoutes(){ return [] }
 }
 

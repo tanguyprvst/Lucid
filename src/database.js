@@ -20,32 +20,44 @@ class DB {
 
 class QueryBuilder 
 {
-    where = undefined
+    where_array = []
     constructor(connection, table){
         this.connection = connection;
         this.table = table;
     }
 
     where(property, operator, value) {
-        if (is_string(value)) value = '\"' + value + '\"';
-        this.where = `${property} ${operator} ${value}`;
+        if (typeof value == 'string' || value instanceof String) value = '\"' + value + '\"';
+        this.where_array.length > 0 ? this.where_array.push(`AND ${property} ${operator} ${value}`) : this.where_array.push(`${property} ${operator} ${value}`);
         return this;
     }
 
-    async get(callback) {
+    orWhere(property, operator, value) {
+        if (typeof value == 'string' || value instanceof String) value = '\"' + value + '\"';
+        this.where_array.push(`OR ${property} ${operator} ${value}`);
+        return this;
+    }
+
+    get(callback, first = false) {
         let table = this.table;
-        let where = this.where;
-        if (where) {
-            return this.connection.query(`SELECT * FROM ${table} WHERE ${where}`);
+        let where_array = this.where_array;
+        let cmd = `SELECT * FROM ${table}`;
+        if (where_array.length > 0) {
+            cmd += ' WHERE';
+            where_array.forEach(condition => {
+                cmd += ' ' + condition;
+            });
         }
-        this.connection.query(`SELECT * FROM ${table}`, (err, res) => {
+        console.log(cmd);
+        this.connection.query(cmd, (err, res) => {
             if(err) throw(err);
+            if(first) return callback(res[0]);
             callback(res);
         });
     }
 
-    first() {
-        return this.get()[0];
+    first(callback) {
+        return this.get(callback, true);
     }
 
     delete() {
