@@ -26,8 +26,6 @@ npm install
 
 ### Controllers
 
-#### Create
-
 Create a controller in ``app/controllers``
 
 ```js
@@ -39,8 +37,6 @@ class ExempleController extends Controller {
 
 module.exports = ExempleController
 ```
-
-#### Add routes and functions
 
 Create your routes and methods!
 
@@ -58,13 +54,35 @@ class ExempleController extends Controller {
         this.render(res, {value: "Hello"});
     }
 }
+```
+
+### Routes
+
+GET method:
+```js
+['/', 'get', this.exempleFunc],
+```
+
+POST method:
+```js
+['/', 'post', this.exempleFunc],
+```
+```js
+exempleFunc(res, request){}
+```
+
+Route with parameter:
+```js
+['/tickets/{id}', 'get', this.exempleFunc],
+```
+```js
+exempleFunc(res, id){}
+```
 
 module.exports = ExempleController
 ```
 
 ### Middlewares
-
-#### Create
 
 Create a controller in ``app/middlewares``
 
@@ -79,22 +97,17 @@ class ExempleMiddleware {
 module.exports = ExempleMiddleware
 ```
 
-#### Import
-
 In your controller, import your middleware
 
 ```js
 const ExempleMiddleware = require('../middlewares/ExempleMiddleware');
 ```
 
-#### Use
-
 And use your middleware by changing your route!
 
 ```js
 ['/', 'get', this.exempleFunc, ExempleMiddleware],
 ```
-
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
