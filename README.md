@@ -79,9 +79,6 @@ Route with parameter:
 exempleFunc(res, id){}
 ```
 
-module.exports = ExempleController
-```
-
 ### Middlewares
 
 Create a controller in ``app/middlewares``
