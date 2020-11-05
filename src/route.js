@@ -1,9 +1,10 @@
 class Route {
 
-    constructor(path, method, callback, middleware = undefined){
+    constructor(path, method, callback, controller, middleware = undefined){
         this.path = path;
         this.method = method.toUpperCase();
-        this.callback = callback;
+        this.callback = callback.bind(controller);
+        this.controller = controller;
         this.middleware = middleware;
     }
 
@@ -33,8 +34,9 @@ class Route {
         return isValid;
     }
 
-    execute(request){
-        return this.middleware ? this.middleware.handle(request, this.requestManager.bind(this)): this.requestManager(request);
+    execute(res, request){
+        this.controller.res = res;
+        return this.middleware ? this.middleware.handle(request, this.requestManager.bind(this)) : this.requestManager(request);
     }
 
     requestManager(request){

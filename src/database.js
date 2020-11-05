@@ -8,13 +8,8 @@ class DB {
             password : '',
             database : 'lucid'
           });
-          
           connection.connect();
 
-          let test = connection.query('SELECT * FROM users', function (error, results, fields) {
-            if (error) throw error;
-            console.log('The solution is: ', results);
-          });
           return connection;
     }
 
@@ -23,8 +18,8 @@ class DB {
     }
 }
 
-class QueryBuilder {
- 
+class QueryBuilder 
+{
     where = undefined
     constructor(connection, table){
         this.connection = connection;
@@ -37,13 +32,16 @@ class QueryBuilder {
         return this;
     }
 
-    get() {
+    async get(callback) {
         let table = this.table;
         let where = this.where;
         if (where) {
             return this.connection.query(`SELECT * FROM ${table} WHERE ${where}`);
         }
-        return this.connection.query(`SELECT * FROM ${table}`);
+        this.connection.query(`SELECT * FROM ${table}`, (err, res) => {
+            if(err) throw(err);
+            callback(res);
+        });
     }
 
     first() {

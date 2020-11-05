@@ -1,12 +1,11 @@
 const fs = require('fs');
-const url = require('url');
 const response = require('../src/response');
-const { get } = require('http');
+const Route = require('./route');
 
 class App {
 
     static execute(req, res, body){
-        const { headers, method, url } = req;
+        const { method, url } = req;
 
         let execute_route;
         let routes = [];
@@ -21,8 +20,13 @@ class App {
             files.forEach(function (file) {
                 let controllerClass = require(`${directoryPath}/${file}`);
                 let controller = new controllerClass();
-                controller.getRoutes().forEach(route => {
-                    routes.push(route);
+                controller.getRoutes().forEach(arrayroute => {
+                    let path = arrayroute[0];
+                    let method = arrayroute[1];
+                    let func = arrayroute[2];
+                    let middleware = undefined;
+                    if(arrayroute.length == 4) middleware = arrayroute[3];
+                    routes.push(new Route(path, method, func, controller, middleware));
                 })
             });
             
@@ -47,11 +51,9 @@ class App {
             }
 
             args['get']  = execute_route.getUrlArgs(url);
+            args['req'] = req;
 
-            // get response
-            let json = execute_route.execute(args);
-            
-            response.success(res, json);
+            execute_route.execute(res, args);
         });
     }
 }
