@@ -1,4 +1,5 @@
 const mysql = require('mysql');
+const env = require('../config/env');
 
 class DB {
     static connection() {

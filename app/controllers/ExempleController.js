@@ -13,8 +13,8 @@ class ExempleController extends Controller {
     }
 
     exempleFunc(res){
-        DB.table('users').where('username', '=', 'Japan').get((data) => {
-            this.render(res, {value: data});
+        DB.table('users').get((data) => {
+            this.render(res, 'welcome.html', {users: data});
         });
     }
 
