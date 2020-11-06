@@ -65,7 +65,7 @@ GET method:
 ['/', 'get', this.exempleFunc]
 ```
 ```js
-exempleFunc(res){}
+exempleFunc(res){ //Todo: code }
 ```
 
 POST method:
@@ -73,7 +73,7 @@ POST method:
 ['/', 'post', this.exempleFunc]
 ```
 ```js
-exempleFunc(res, request){}
+exempleFunc(res, request){ //Todo: code }
 ```
 
 Route with parameter:
@@ -81,7 +81,7 @@ Route with parameter:
 ['/tickets/{id}', 'get', this.exempleFunc]
 ```
 ```js
-exempleFunc(res, id){}
+exempleFunc(res, id){ //Todo: code }
 ```
 
 ### Middlewares
