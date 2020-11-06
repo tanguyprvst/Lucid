@@ -31,7 +31,7 @@ npm install
 Create a controller in ``app/controllers``
 
 ```js
-const Controller = require('../../src/controller');
+const Controller = require('../../src/app/controller');
 
 class ExempleController extends Controller {
 
@@ -43,7 +43,7 @@ module.exports = ExempleController
 Create your routes and methods!
 
 ```js
-const Controller = require('../../src/controller');
+const Controller = require('../../src/app/controller');
 
 class ExempleController extends Controller {
     getRoutes(){
@@ -62,12 +62,15 @@ class ExempleController extends Controller {
 
 GET method:
 ```js
-['/', 'get', this.exempleFunc],
+['/', 'get', this.exempleFunc]
+```
+```js
+exempleFunc(res){}
 ```
 
 POST method:
 ```js
-['/', 'post', this.exempleFunc],
+['/', 'post', this.exempleFunc]
 ```
 ```js
 exempleFunc(res, request){}
@@ -75,7 +78,7 @@ exempleFunc(res, request){}
 
 Route with parameter:
 ```js
-['/tickets/{id}', 'get', this.exempleFunc],
+['/tickets/{id}', 'get', this.exempleFunc]
 ```
 ```js
 exempleFunc(res, id){}
@@ -105,7 +108,7 @@ const ExempleMiddleware = require('../middlewares/ExempleMiddleware');
 And use your middleware by changing your route!
 
 ```js
-['/', 'get', this.exempleFunc, ExempleMiddleware],
+['/', 'get', this.exempleFunc, ExempleMiddleware]
 ```
 
 ## Contributing
