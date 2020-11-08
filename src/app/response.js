@@ -1,8 +1,8 @@
 class Response {
 
     static error(res, err){
-        /*res.setHeader('Content-Type', 'application/json');
-        res.end(JSON.stringify({error: err}));*/
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({error: err}));
     }
 
     static json(res, json){

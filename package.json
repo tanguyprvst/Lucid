@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/Addidii/Lucid.git"
   },
-  "author": "Addicted",
+  "author": "Tanguy Prvst",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Addidii/Lucid/issues"
@@ -21,6 +21,6 @@
     "bcrypt": "^5.0.0",
     "ejs": "^3.1.5",
     "line-reader": "^0.4.0",
-    "mysql": "github:mysqljs/mysql"
+    "mysql": "^2.18.1"
   }
 }
