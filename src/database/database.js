@@ -1,22 +1,25 @@
 const mysql = require('mysql');
-const env = require('../config/env');
+const env = require('../../env');
 
 class DB {
     
     static connection() {
-        env.searchArray(['DB_HOST', 'DB_PORT', 'DB_DATABASE', 'DB_USERNAME', 'DB_PASSWORD'], data => {
-            console.log(data.get('DB_HOST'));
-        });
+        let values = env.get();
         
         var connection = mysql.createConnection({
-            host     : 'localhost',
-            user     : 'root',
-            password : '',
-            database : 'lucid'
+            host     : values['DB_HOST'],
+            user     : values['DB_USERNAME'],
+            password : values['DB_PASSWORD'],
+            database : values['DB_DATABASE'],
+            port: values['DB_PORT'],
           });
           connection.connect();
 
           return connection;
+    }
+
+    static mysql(){
+        
     }
 
     static table(table){

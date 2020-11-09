@@ -1,5 +1,6 @@
 const Controller = require('../../src/app/controller');
-const env = require('../../src/config/env');
+const env = require('../../env');
+const DB = require('../../src/database/database');
 
 class ExempleController extends Controller {
 
@@ -10,11 +11,14 @@ class ExempleController extends Controller {
     }
 
     home(res){
-        env.search('APP_NAME', data => {
-            return this.render(res, 'welcome.html', {
-                name: data
-            });
+        DB.table('users').get(data =>  {
+            console.log(data);
         })
+        
+        const name = env.get()['APP_NAME'];
+        return this.render(res, 'welcome.html', {
+            name: name
+        });
     }
 }
 
