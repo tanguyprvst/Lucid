@@ -8,19 +8,11 @@ class Controller {
     
     json(res, json) { Response.json(res, json); }
 
-    render(res, path, data = null) {
+    render(res, path, data = {}) {
         let filename = './app/views/'
-        if(data){
-            ejs.renderFile(filename + path, data, function(err, str){
-                return Response.render(res, str);
-            });
-        }else{
-            fs.readFile(filename + path, null, (err, data) => {
-                if (err) return respone.error(res)
-                Response.render(res, data);
-            }); 
-        }
-        
+        ejs.renderFile(filename + path, data, function(err, str){
+            return Response.render(res, str);
+        });
     }
 
     getRoutes(){ return [] }

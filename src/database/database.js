@@ -2,7 +2,12 @@ const mysql = require('mysql');
 const env = require('../config/env');
 
 class DB {
+    
     static connection() {
+        env.searchArray(['DB_HOST', 'DB_PORT', 'DB_DATABASE', 'DB_USERNAME', 'DB_PASSWORD'], data => {
+            console.log(data.get('DB_HOST'));
+        });
+        
         var connection = mysql.createConnection({
             host     : 'localhost',
             user     : 'root',
