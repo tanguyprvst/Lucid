@@ -33,9 +33,8 @@ class App {
 
         if(ressource){
             fs.readFile(publicPath + url, function (err, data) {
-                if (err) throw err;
-                response.custom(res, data, ressource);
-                
+                if (err) return response.notfound(res);
+                response.custom(res, data, ressource);        
             });
         }else{
             // get files
@@ -43,6 +42,7 @@ class App {
                 if(err) throw err;
                 // get routes
                 files.forEach(function (file) {
+                    if(!fs.lstatSync(`${directoryPath}/${file}`).isFile()) return;
                     let controllerClass = require(`${directoryPath}/${file}`);
                     let controller = new controllerClass();
                     controller.getRoutes().forEach(arrayroute => {
