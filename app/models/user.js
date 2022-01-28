@@ -1,13 +1,14 @@
 const Model = require('../../src/model');
 
-class User extends Model{
-
-    repository = '';
-
-    constructor(username, email, password){
-        this.username = username;
-        this.email = email;
-        this.password = password;
+class User extends Model {
+    static _getTable() { return 'users'; }
+    static _getResponseObj(data) { return new User(data); }
+    static _getFields() {
+        return [
+            'username',
+            'email',
+            'password'
+        ];
     }
 }
 

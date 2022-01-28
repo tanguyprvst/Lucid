@@ -10,6 +10,11 @@ class Response {
         res.end(JSON.stringify(json));
     }
 
+    static notfound(res) {
+        res.writeHead(404);
+        res.end();
+    }
+
     static custom(res, data, type){
         res.writeHead(200, {'Content-Type': type});
         res.write(data);

@@ -1,6 +1,7 @@
 const Response = require("./response");
 const ejs = require('ejs');
 const fs = require('fs');
+const mime = require('mime-types');
 
 class Controller {
 
@@ -9,9 +10,20 @@ class Controller {
     json(res, json) { Response.json(res, json); }
 
     render(res, path, data = {}) {
-        let filename = './app/views/'
-        ejs.renderFile(filename + path, data, function(err, str){
+        ejs.renderFile(`./ressources/views/${path}`, data, function(err, str){
             return Response.render(res, str);
+        });
+    }
+
+    getRessourceFile(path, c) {
+        fs.readFile(`./ressources/uploads/${path}`, c);
+    }
+
+    renderRessourceFile(res, path) {
+        fs.readFile(`./ressources/uploads/${path}`, (err, data) => {
+            if(err) return Response.notfound(res);
+            const contentType = mime.extension(path);
+            Response.custom(res, data, (contentType) ? contentType : 'text/plain');
         });
     }
 

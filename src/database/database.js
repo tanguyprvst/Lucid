@@ -1,5 +1,6 @@
 const mysql = require('mysql');
 const env = require('../../env');
+const ArrayHelper = require('../utils/arrays');
 
 class DB {
     
@@ -29,12 +30,25 @@ class DB {
 
 class QueryBuilder 
 {
+    select_array = [];
     where_array = [];
     value_array = [];
+    end_array = [];
 
     constructor(connection, table){
         this.connection = connection;
         this.table = table;
+    }
+
+    select(fields) {
+        if(fields instanceof String) {
+            fields = fields.trim();
+            if(!ArrayHelper.containsValue(this.select_array, f)) return this.select_array.push(f);
+        }
+        fields.forEach(f => {
+            f = f.trim();
+            if(!ArrayHelper.containsValue(this.select_array, f)) this.select_array.push(f);
+        });
     }
 
     where(property, operator, value, prefix = "AND") {
@@ -70,12 +84,61 @@ class QueryBuilder
         return this.get(callback, true);
     }
 
-    delete() {
-        let table = this.table;
-        let where = this.where;
+    limit(count) {
+        this.end_array.push(`LIMIT ${count}`);
+    }
 
+    order(field, type = 'ASC') {
+        this.end_array.push(`ORDER BY ${field} ${type}`);
+    }
+
+    orders(ords) {
+        let cmd = 'ORDER BY ';
+        Object.entries(ords).forEach((v, i) => {
+            if(i) cmd += ', ';
+            cmd += `${v[0]} ${v[1]}`;
+        });
+        this.end_array.push(cmd);
+    }
+
+    create(fields, callback) {
+        let cmd = `INSERT INTO ${this.table} (`;
+
+        Object.keys(obj).forEach((n, i) => {
+            if(i) query += ', ';
+            query += n;
+        });
+        query += ') VALUES ?';
+
+        cmd = mysql.format(cmd, Object.values(fields));
+        return this.connection.query(cmd, (err, res) => {
+            if(err) throw(err);
+            if(callback) callback(res ? res.insertId : 0);
+        });
+    }
+
+    update(fields, callback) {
+        let cmd = `UPDATE ${this.table} SET `;
+
+        Object.keys(fields).forEach((v, i) => {
+            if(i) cmd += ', ';
+            cmd += `${v} = ?`;
+        });
+
+        cmd = mysql.format(cmd, Object.values(fields));
+        return this.connection.query(cmd, (err, res) => {
+            if(err) throw(err);
+            if(callback) callback(res);
+        });
+    }
+
+    delete(callback) {
         if ($where) {
-            return this.connection.query(`DELETE FROM ${table} WHERE ${where}`);
+            return this.connection.query(`DELETE FROM ${this.table} WHERE ${this.where}`, (err, res) => {
+                if(!callback) return;
+                if(err || !res) return callback(false);
+                callback(true);
+            });
         }
     }
 }
